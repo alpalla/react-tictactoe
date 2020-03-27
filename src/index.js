@@ -23,23 +23,21 @@ class Board extends React.Component {
   }
 
   render() {
+    const createBoard = () => {
+      let board = [];
+      let counter = 0;
+      for(let i = 0; i < 3; i++) {
+        let row = []
+        for(let j = 0; j < 3; j++) {
+          row.push(this.renderSquare(counter++))
+        }
+        board.push(<div className="board-row">{row}</div>);
+      }
+      return board;
+    }
     return (
       <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        {createBoard()}
       </div>
     );
   }
@@ -73,7 +71,7 @@ class Game extends React.Component {
           moveLocation: {row: Math.floor(i / 3) + 1, col: i % 3 + 1}
         }]),
       stepNumber: history.length,
-      xIsNext: !this.state.xIsNext,
+      xIsNext: !this.state.xIsNext
     });
   }
 
@@ -84,13 +82,20 @@ class Game extends React.Component {
     });
   }
 
+  sortMoves() {
+    this.setState({
+      history: this.state.history.reverse(),
+      stepNumber: this.state.history.length - 1 - this.state.stepNumber
+    });
+  }
+
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
     const moves = history.map((step, move) => {
-      const desc = move ?
+      const desc = step.moveLocation.row !== null ?
       'Go to move #' + move + ' at row: ' + step.moveLocation.row + ', col: ' + step.moveLocation.col:
       'Go to game start';
       const fontStyle = {'fontWeight': this.state.stepNumber === move ? 'bold' : 'normal'};
@@ -120,6 +125,7 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
+          <button onClick={() => this.sortMoves()}>Sort moves</button>
           <ol>{moves}</ol>
         </div>
       </div>
