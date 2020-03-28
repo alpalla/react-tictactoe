@@ -98,6 +98,14 @@ class Game extends React.Component {
     });
   }
 
+  boardIsFull(step) {
+    for (let square of step.squares) {
+      if (square === null) 
+      return false;
+    }
+    return true;
+  }
+
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
@@ -126,7 +134,10 @@ class Game extends React.Component {
       status = 'Winner: ' + current.squares[winner[0]];
       squareStyling[winner[0]] = squareStyling[winner[1]] = squareStyling[winner[2]] = winnerStyle;
       
-    } else {
+    } else if (this.boardIsFull(current)) {
+      status = 'Draw!'
+    } 
+    else {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
     return (
