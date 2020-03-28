@@ -53,24 +53,31 @@ class Game extends React.Component {
         moveLocation: {row: null, col: null}
       }],
       stepNumber: 0,
-      xIsNext: true
+      xIsNext: true,
+      desc: true
     };
   }
 
   handleClick(i) {
-    const history = this.state.history.slice(0, this.state.stepNumber + 1);
-    const current = history[history.length - 1];
+    const history = this.state.desc ?
+      this.state.history.slice(0, this.state.stepNumber + 1) :
+      this.state.history.slice(this.state.stepNumber)
+    const current = this.state.desc ?
+      history[history.length - 1] : history[0];
     const squares = current.squares.slice();
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
     squares[i] = this.state.xIsNext ? 'X' : 'O';
-      this.setState({
-        history: history.concat([{
-          squares: squares,
-          moveLocation: {row: Math.floor(i / 3) + 1, col: i % 3 + 1}
-        }]),
-      stepNumber: history.length,
+    let newEntry = {
+      squares: squares,
+      moveLocation: {row: Math.floor(i / 3) + 1, col: i % 3 + 1}
+    }
+    this.setState({
+      history: this.state.desc ?
+        history.concat([newEntry]) : [newEntry].concat(history),
+      stepNumber: this.state.desc ?
+        history.length : 0,
       xIsNext: !this.state.xIsNext
     });
   }
@@ -85,7 +92,8 @@ class Game extends React.Component {
   sortMoves() {
     this.setState({
       history: this.state.history.reverse(),
-      stepNumber: this.state.history.length - 1 - this.state.stepNumber
+      stepNumber: this.state.history.length - 1 - this.state.stepNumber,
+      desc: !this.state.desc
     });
   }
 
@@ -95,8 +103,9 @@ class Game extends React.Component {
     const winner = calculateWinner(current.squares);
 
     const moves = history.map((step, move) => {
-      const desc = step.moveLocation.row !== null ?
-      'Go to move #' + move + ' at row: ' + step.moveLocation.row + ', col: ' + step.moveLocation.col:
+      const moves = step.moveLocation.row !== null ?
+      'Go to move #' + (this.state.desc ? move : history.length - 1 - move)
+        + ' at row: '+ step.moveLocation.row + ', col: ' + step.moveLocation.col:
       'Go to game start';
       const fontStyle = {'fontWeight': this.state.stepNumber === move ? 'bold' : 'normal'};
       return (
@@ -104,7 +113,7 @@ class Game extends React.Component {
           <button
             onClick={() => this.jumpTo(move)}
             style={fontStyle}>
-            {desc}
+            {moves}
           </button>
         </li>
       )
@@ -159,4 +168,3 @@ function calculateWinner(squares) {
   }
   return null;
 }
-  
