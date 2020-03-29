@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/alpalla/react-tictactoe/static/css/main.48a3cf93.chunk.css",
+    "main.js": "/alpalla/react-tictactoe/static/js/main.4d2b63be.chunk.js",
+    "main.js.map": "/alpalla/react-tictactoe/static/js/main.4d2b63be.chunk.js.map",
+    "runtime-main.js": "/alpalla/react-tictactoe/static/js/runtime-main.802dc25a.js",
+    "runtime-main.js.map": "/alpalla/react-tictactoe/static/js/runtime-main.802dc25a.js.map",
+    "static/js/2.db1b893b.chunk.js": "/alpalla/react-tictactoe/static/js/2.db1b893b.chunk.js",
+    "static/js/2.db1b893b.chunk.js.map": "/alpalla/react-tictactoe/static/js/2.db1b893b.chunk.js.map",
+    "index.html": "/alpalla/react-tictactoe/index.html",
+    "precache-manifest.d42abd177b478c435d2e42ba9a0e0c50.js": "/alpalla/react-tictactoe/precache-manifest.d42abd177b478c435d2e42ba9a0e0c50.js",
+    "service-worker.js": "/alpalla/react-tictactoe/service-worker.js",
+    "static/css/main.48a3cf93.chunk.css.map": "/alpalla/react-tictactoe/static/css/main.48a3cf93.chunk.css.map",
+    "static/js/2.db1b893b.chunk.js.LICENSE.txt": "/alpalla/react-tictactoe/static/js/2.db1b893b.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.802dc25a.js",
+    "static/js/2.db1b893b.chunk.js",
+    "static/css/main.48a3cf93.chunk.css",
+    "static/js/main.4d2b63be.chunk.js"
+  ]
+}
