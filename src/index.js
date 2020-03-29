@@ -4,8 +4,12 @@ import './index.css';
 
 
 function Square(props) {
+  const style = {
+    'color': props.value === 'X' ? 'black' : 'antiquewhite',
+    'background': props.style.isWinningSquare ? 'palegreen' : '#3fa292'
+  }
   return (
-    <button className="square" onClick={props.onClick} style={props.style}>
+    <button className="square" onClick={props.onClick} style={style}>
       {props.value}
     </button>
   )
@@ -37,9 +41,7 @@ class Board extends React.Component {
       return board;
     }
     return (
-      <div>
-        {createBoard()}
-      </div>
+      createBoard()
     );
   }
 }
@@ -128,11 +130,12 @@ class Game extends React.Component {
       )
     })
     let status;
-    let squareStyling = new Array(9);
-    let winnerStyle = {'background': 'yellow'}
+    let squareStyle = new Array(9);
+    squareStyle.fill({'isWinningSquare': false});
+    let isWinningSquare = {'isWinningSquare': true}
     if (winner) {
       status = 'Winner: ' + current.squares[winner[0]];
-      squareStyling[winner[0]] = squareStyling[winner[1]] = squareStyling[winner[2]] = winnerStyle;
+      squareStyle[winner[0]] = squareStyle[winner[1]] = squareStyle[winner[2]] = isWinningSquare;
       
     } else if (this.boardIsFull(current)) {
       status = 'Draw!'
@@ -145,12 +148,12 @@ class Game extends React.Component {
         <div className="game-board">
           <Board
             squares={current.squares}
-            style={squareStyling}
+            style={squareStyle}
             onClick={(i) => this.handleClick(i)}
           />
         </div>
         <div className="game-info">
-          <div>{status}</div>
+          <div className="status">{status}</div>
           <button onClick={() => this.sortMoves()}>Sort moves</button>
           <ol>{moves}</ol>
         </div>
