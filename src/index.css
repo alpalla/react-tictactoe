@@ -9,6 +9,11 @@ body {
   height: 50%;
 }
 
+h1 {
+  font-size: 5vw;
+  /* text-align: center; */
+}
+
 #root {
 height: 100%;
 width: 100%;
@@ -47,8 +52,8 @@ ol, ul {
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 33%;
-  font-size: 10vmin;
+  width: 33.33%;
+  font-size: 10vw;
 }
 
 .square:focus {
@@ -67,12 +72,15 @@ ol, ul {
 }
 
 .game-board {
-  width: 50%;
+  width: 50vw;
+  height: 50vw;
+  max-height: 50vh;
+  max-width: 50vh;
   justify-content: right;
 }
 
 .board-row {
-  height: 33%;
+  height: 33.33%;
 }
 
 .game-info {
